@@ -52,15 +52,15 @@ def report_game(session, game_url, report_details, csrf_token, cookie_string):
             return True  
         
         elif response.status_code == 403:
-            print(Colorate.Vertical(Colors.purple_to_blue, f"[!] Forbidden (403). Retrying with the same account: {cookie_string[:10]}..."))
+            
             return False  
         
         else:
-            print(Colorate.Vertical(Colors.purple_to_blue, f"[-] Failed to report game: {game_url}. Status code: {response.status_code}"))
+            
             return False
 
     except Exception as e:
-        print(Colorate.Vertical(Colors.purple_to_blue, f"[!] Error occurred while reporting: {e}"))
+        
         return False
 
 def main():
