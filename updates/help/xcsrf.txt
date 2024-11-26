@@ -4,7 +4,7 @@ go to updates > reques__t > xcrftoken.py
 
 2
 
-put ur cookies at #here
+put ur cookies at saved > accounts.json, read docs > example.json to see, when ur done copy example.json and put all u want.
 
 3.
 
