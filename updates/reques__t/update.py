@@ -64,7 +64,8 @@ def report_game(session, game_url, report_details, csrf_token, cookie_string):
         print(f"[!] Error occurred while reporting: {e}")
         return False
 
-print(r"""
+def main():
+    print(r"""
  ███▄ ▄███▓ ▄▄▄        ██████   ██████     ██▀███  ▓█████  ██▓███   ▒█████   ██▀███  ▄▄▄█████▓
 ▓██▒▀█▀ ██▒▒████▄    ▒██    ▒ ▒██    ▒    ▓██ ▒ ██▒▓█   ▀ ▓██░  ██▒▒██▒  ██▒▓██ ▒ ██▒▓  ██▒ ▓▒
 ▓██    ▓██░▒██  ▀█▄  ░ ▓██▄   ░ ▓██▄      ▓██ ░▄█ ▒▒███   ▓██░ ██▓▒▒██░  ██▒▓██ ░▄█ ▒▒ ▓██░ ▒░
@@ -76,23 +77,23 @@ print(r"""
        ░         ░  ░      ░        ░        ░        ░  ░             ░ ░     ░                  
 
     """)
-print('version 0.0.2')
-print('type: request')
-cookies = load_cookies()
+    print('version 0.0.2')
+    print('type: request')
+    cookies = load_cookies()
 
-game_url = input("[/] Game link: ")
+    game_url = input("[/] Game link: ")
 
-print("[!] Started reporting using all available cookies...")
+    print("[!] Started reporting using all available cookies...")
 
-session = requests.Session()
+    session = requests.Session()
 
-for selected_cookie in cookies:
+    for selected_cookie in cookies:
         cookie_string = selected_cookie["value"]
         csrf_token = selected_cookie["xcrftoken"]
         
         reported = False
         while not reported:
-           
+            
             user_input = input("Type '!exit' to stop or press Enter to continue reporting: ")
             if user_input.lower() == "!exit":
                 print("[!] Exiting the reporting process.")
