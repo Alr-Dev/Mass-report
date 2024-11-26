@@ -1,0 +1,19 @@
+HOW TO DOWNLOAD
+
+1. Get google version, currently version is: 131.0.6778.86
+
+2. Link
+
+put at this part the version from chrome, if dont work wait some days, 
+chromedriver get late for update.
+
+https://storage.googleapis.com/chrome-for-testing-public/versionhere/chromedriver-win64.zip
+
+current like are working: https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.86/win64/chromedriver-win64.zip
+
+3. How to change for others:
+
+Win32:
+https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.86/linux/chromedriver-linux.zip
+
+i dont know more, lol.

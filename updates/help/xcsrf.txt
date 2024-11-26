@@ -1,0 +1,11 @@
+HOW TO GET X-CSRF TOKEN:
+1
+go to updates > reques__t > xcrftoken.py
+
+2
+
+put ur cookies at #here
+
+3.
+
+Execute ur code, copy the x-csrf token and go to saved > accounts.json and put at xcrftoken

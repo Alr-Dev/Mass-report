@@ -1,0 +1,5 @@
+Change-logs:
+ > version 0.0.2
+ > added requests version
+
+u can use the selenium version going to saved > old > selenium-version.py

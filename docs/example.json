@@ -1,0 +1,26 @@
+{
+    "cookies": [
+      {
+        "name": ".ROBLOSECURITY",
+        "username": "User1",
+        "value": "TOKENHERE",
+        "xcrftoken": "XCRFTOKENHERE",
+        "domain": "roblox.com",
+        "path": "/",
+        "httpOnly": true,
+        "secure": true
+      },
+      {
+        "name": ".ROBLOSECURITY",
+        "username": "User2",
+        "value": "TOKENHERE",
+        "xcrftoken": "XCRFTOKENHERE",
+        "domain": "roblox.com",
+        "path": "/",
+        "httpOnly": true,
+        "secure": true
+      }
+    ]
+  }
+  
+  
