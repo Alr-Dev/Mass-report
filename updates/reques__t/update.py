@@ -2,7 +2,7 @@ import requests
 import random
 import json
 import time
-
+from pystyle import Colorate, Colors, Center
 
 def load_cookies():
     with open("saved/accounts.json", "r") as f:
@@ -48,42 +48,50 @@ def report_game(session, game_url, report_details, csrf_token, cookie_string):
         
 
         if response.status_code == 200:
-            print(f"[+] Successfully reported the game: {game_url} using cookie: {cookie_string[:10]}...")
+            print(Colorate.Vertical(Colors.purple_to_blue, f"[+] Successfully reported the game: {game_url} using cookie: {cookie_string[:10]}..."))
             return True  
         
-      
         elif response.status_code == 403:
-            print(f"[!] Forbidden (403). Retrying with the same account: {cookie_string[:10]}...")
+            print(Colorate.Vertical(Colors.purple_to_blue, f"[!] Forbidden (403). Retrying with the same account: {cookie_string[:10]}..."))
             return False  
         
         else:
-            print(f"[-] Failed to report game: {game_url}. Status code: {response.status_code}")
+            print(Colorate.Vertical(Colors.purple_to_blue, f"[-] Failed to report game: {game_url}. Status code: {response.status_code}"))
             return False
 
     except Exception as e:
-        print(f"[!] Error occurred while reporting: {e}")
+        print(Colorate.Vertical(Colors.purple_to_blue, f"[!] Error occurred while reporting: {e}"))
         return False
 
 def main():
-    print(r"""
- ███▄ ▄███▓ ▄▄▄        ██████   ██████     ██▀███  ▓█████  ██▓███   ▒█████   ██▀███  ▄▄▄█████▓
-▓██▒▀█▀ ██▒▒████▄    ▒██    ▒ ▒██    ▒    ▓██ ▒ ██▒▓█   ▀ ▓██░  ██▒▒██▒  ██▒▓██ ▒ ██▒▓  ██▒ ▓▒
-▓██    ▓██░▒██  ▀█▄  ░ ▓██▄   ░ ▓██▄      ▓██ ░▄█ ▒▒███   ▓██░ ██▓▒▒██░  ██▒▓██ ░▄█ ▒▒ ▓██░ ▒░
-▒██    ▒██ ░██▄▄▄▄██   ▒   ██▒  ▒   ██▒   ░██▀▀█▄  ▒▓█  ▄ ▒██▄█▓▒ ▒▒██   ██░▒██▀▀█▄  ░ ▓██▓ ░ 
-▒██▒   ░██▒ ▓█   ▓██▒▒██████▒▒▒██████▒▒   ░██▓ ▒██▒░▒████▒▒██▒ ░  ░░ ████▓▒░░██▓ ▒██▒  ▒██▒ ░ 
-░ ▒░   ░  ░ ▒▒   ▓▒█░▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░   ░ ▒▓ ░▒▓░░░ ▒░ ░▒▓▒░ ░  ░░ ▒░▒░▒░ ░ ▒▓ ░▒▓░  ▒ ░░   
-░  ░      ░  ▒   ▒▒ ░░ ░▒  ░ ░░ ░▒  ░ ░     ░▒ ░ ▒░ ░ ░  ░░▒ ░       ░ ▒ ▒░   ░▒ ░ ▒░    ░    
-░      ░     ░   ▒   ░  ░  ░  ░  ░  ░       ░░   ░    ░   ░░       ░ ░ ░ ▒    ░░   ░   ░      
-       ░         ░  ░      ░        ░        ░        ░  ░             ░ ░     ░                  
+    
+    ascii_art = """
+    ███▄ ▄███▓ ▄▄▄        ██████   ██████     ██▀███  ▓█████  ██▓███   ▒█████   ██▀███  ▄▄▄█████▓
+    ▓██▒▀█▀ ██▒▒████▄    ▒██    ▒ ▒██    ▒    ▓██ ▒ ██▒▓█   ▀ ▓██░  ██▒▒██▒  ██▒▓██ ▒ ██▒▓  ██▒ ▓▒
+    ▓██    ▓██░▒██  ▀█▄  ░ ▓██▄   ░ ▓██▄      ▓██ ░▄█ ▒▒███   ▓██░ ██▓▒▒██░  ██▒▓██ ░▄█ ▒▒ ▓██░ ▒░
+    ▒██    ▒██ ░██▄▄▄▄██   ▒   ██▒  ▒   ██▒   ░██▀▀█▄  ▒▓█  ▄ ▒██▄█▓▒ ▒▒██   ██░▒██▀▀█▄  ░ ▓██▓ ░ 
+    ▒██▒   ░██▒ ▓█   ▓██▒▒██████▒▒▒██████▒▒   ░██▓ ▒██▒░▒████▒▒██▒ ░  ░░ ████▓▒░░██▓ ▒██▒  ▒██▒ ░ 
+    ░ ▒░   ░  ░ ▒▒   ▓▒█░▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░   ░ ▒▓ ░▒▓░░░ ▒░ ░▒▓▒░ ░  ░░ ▒░▒░▒░ ░ ▒▓ ░▒▓░  ▒ ░░   
+    ░  ░      ░  ▒   ▒▒ ░░ ░▒  ░ ░░ ░▒  ░ ░     ░▒ ░ ▒░ ░ ░  ░░▒ ░       ░ ▒ ▒░   ░▒ ░ ▒░    ░    
+    ░      ░     ░   ▒   ░  ░  ░  ░  ░  ░       ░░   ░    ░   ░░       ░ ░ ░ ▒    ░░   ░   ░      
+           ░         ░  ░      ░        ░        ░        ░  ░             ░ ░     ░                   
+    """
 
-    """)
-    print('version 0.0.2')
-    print('type: request')
+
+    print(Colorate.Horizontal(Colors.purple_to_blue, Center.XCenter(ascii_art)))  
+
+    # 
+    print(Colorate.Vertical(Colors.purple_to_blue, "Version 0.0.2"))  
+
+
+    print(Colorate.Vertical(Colors.purple_to_blue, "Type: request"))
+
     cookies = load_cookies()
 
-    game_url = input("[/] Game link: ")
+    
+    game_url = input(Colorate.Vertical(Colors.purple_to_blue, "[/] Game link: "))
 
-    print("[!] Started reporting using all available cookies...")
+    print(Colorate.Vertical(Colors.purple_to_blue, "[!] Started reporting using all available cookies..."))
 
     session = requests.Session()
 
@@ -93,16 +101,16 @@ def main():
         
         reported = False
         while not reported:
-            
-            user_input = input("Type '!exit' to stop or press Enter to continue reporting: ")
-            if user_input.lower() == "!exit":
-                print("[!] Exiting the reporting process.")
-                return  
-            
             reported = report_game(session, game_url, "This is not good content", csrf_token, cookie_string)
             
             if not reported:
-                time.sleep(2)  
+                time.sleep(0)  
+
+    
+    user_input = input(Colorate.Vertical(Colors.purple_to_blue, "All accounts have finished reporting. Type '!exit' to stop or press Enter to exit: "))
+    if user_input.lower() == "!exit":
+        print(Colorate.Horizontal(Colors.purple_to_blue, Center.XCenter("[!] Exiting the reporting process.")))  
+        return  
 
 if __name__ == "__main__":
     main()
