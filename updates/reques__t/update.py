@@ -62,55 +62,65 @@ def report_game(session, game_url, report_details, csrf_token, cookie_string):
     except Exception as e:
         
         return False
+    
+
+        
+import time
+import requests
+from colorama import Fore, Style
+from pystyle import Colorate, Colors, Center
+
+
+
+def loop_report(game_url, cookies):
+    """Continuously report a game until the script is stopped."""
+    print(Colorate.Vertical(Colors.purple_to_blue, f"[!] Started loop reporting for: {game_url}"))
+    session = requests.Session()
+    
+    try:
+        while True: 
+            for selected_cookie in cookies:
+                cookie_string = selected_cookie["value"]
+                csrf_token = selected_cookie["xcrftoken"]
+                
+                reported = False
+                while not reported:
+                    reported = report_game(session, game_url, "This is not good content", csrf_token, cookie_string)
+                    
+                    if not reported:
+                        time.sleep(0)  
+    except KeyboardInterrupt:
+        print(Colorate.Vertical(Colors.purple_to_blue, "[!] Loop reporting stopped by the user."))
 
 def main():
-    
     ascii_art = """
-    ███▄ ▄███▓ ▄▄▄        ██████   ██████     ██▀███  ▓█████  ██▓███   ▒█████   ██▀███  ▄▄▄█████▓
-    ▓██▒▀█▀ ██▒▒████▄    ▒██    ▒ ▒██    ▒    ▓██ ▒ ██▒▓█   ▀ ▓██░  ██▒▒██▒  ██▒▓██ ▒ ██▒▓  ██▒ ▓▒
-    ▓██    ▓██░▒██  ▀█▄  ░ ▓██▄   ░ ▓██▄      ▓██ ░▄█ ▒▒███   ▓██░ ██▓▒▒██░  ██▒▓██ ░▄█ ▒▒ ▓██░ ▒░
-    ▒██    ▒██ ░██▄▄▄▄██   ▒   ██▒  ▒   ██▒   ░██▀▀█▄  ▒▓█  ▄ ▒██▄█▓▒ ▒▒██   ██░▒██▀▀█▄  ░ ▓██▓ ░ 
-    ▒██▒   ░██▒ ▓█   ▓██▒▒██████▒▒▒██████▒▒   ░██▓ ▒██▒░▒████▒▒██▒ ░  ░░ ████▓▒░░██▓ ▒██▒  ▒██▒ ░ 
-    ░ ▒░   ░  ░ ▒▒   ▓▒█░▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░   ░ ▒▓ ░▒▓░░░ ▒░ ░▒▓▒░ ░  ░░ ▒░▒░▒░ ░ ▒▓ ░▒▓░  ▒ ░░   
-    ░  ░      ░  ▒   ▒▒ ░░ ░▒  ░ ░░ ░▒  ░ ░     ░▒ ░ ▒░ ░ ░  ░░▒ ░       ░ ▒ ▒░   ░▒ ░ ▒░    ░    
-    ░      ░     ░   ▒   ░  ░  ░  ░  ░  ░       ░░   ░    ░   ░░       ░ ░ ░ ▒    ░░   ░   ░      
-           ░         ░  ░      ░        ░        ░        ░  ░             ░ ░     ░                   
+    ███╗░░░███╗░█████╗░░██████╗░██████╗  ██████╗░███████╗██████╗░░█████╗░██████╗░████████╗
+    ████╗░████║██╔══██╗██╔════╝██╔════╝  ██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝
+    ██╔████╔██║███████║╚█████╗░╚█████╗░  ██████╔╝█████╗░░██████╔╝██║░░██║██████╔╝░░░██║░░░
+    ██║╚██╔╝██║██╔══██║░╚═══██╗░╚═══██╗  ██╔══██╗██╔══╝░░██╔═══╝░██║░░██║██╔══██╗░░░██║░░░
+    ██║░╚═╝░██║██║░░██║██████╔╝██████╔╝  ██║░░██║███████╗██║░░░░░╚█████╔╝██║░░██║░░░██║░░░
+    ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═════╝░╚═════╝░  ╚═╝░░╚═╝╚══════╝╚═╝░░░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░
     """
-
-
-    print(Colorate.Horizontal(Colors.purple_to_blue, Center.XCenter(ascii_art)))  
-
-    # 
-    print(Colorate.Vertical(Colors.purple_to_blue, "Version 0.0.2"))  
-
-
+    print(Colorate.Horizontal(Colors.purple_to_blue, Center.XCenter(ascii_art)))
+    print(Colorate.Vertical(Colors.purple_to_blue, "Version 0.0.2"))
     print(Colorate.Vertical(Colors.purple_to_blue, "Type: request"))
-
+    
     cookies = load_cookies()
 
-    
-    game_url = input(Colorate.Vertical(Colors.purple_to_blue, "[/] Game link: "))
-
-    print(Colorate.Vertical(Colors.purple_to_blue, "[!] Started reporting using all available cookies..."))
-
-    session = requests.Session()
-
-    for selected_cookie in cookies:
-        cookie_string = selected_cookie["value"]
-        csrf_token = selected_cookie["xcrftoken"]
+    while True:
+        command = input(Colorate.Vertical(Colors.purple_to_blue, "[/] Enter command (!loopreport <gamelink> or !exit): "))
         
-        reported = False
-        while not reported:
-            reported = report_game(session, game_url, "This is not good content", csrf_token, cookie_string)
-            
-            if not reported:
-                time.sleep(0)  
-
-    
-    user_input = input(Colorate.Vertical(Colors.purple_to_blue, "All accounts have finished reporting. Type '!exit' to stop or press Enter to exit: "))
-    if user_input.lower() == "!exit":
-        print(Colorate.Horizontal(Colors.purple_to_blue, Center.XCenter("[!] Exiting the reporting process.")))  
-        return  
+        if command.startswith("!loopreport"):
+            try:
+                _, game_url = command.split(" ", 1)
+                loop_report(game_url, cookies)
+            except ValueError:
+                print(Colorate.Vertical(Colors.purple_to_blue, "[!] Invalid command. Usage: !loopreport <gamelink>"))
+        elif command == "!exit":
+            print(Colorate.Horizontal(Colors.purple_to_blue, Center.XCenter("[!] Exiting the script. Goodbye!")))
+            break
+        else:
+            print(Colorate.Vertical(Colors.purple_to_blue, "[!] Unknown command. Try again."))
 
 if __name__ == "__main__":
     main()
