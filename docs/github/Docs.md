@@ -117,11 +117,6 @@ python script_name.py
 
 ---
 
-## License
-
-This project is licensed under the MIT License.
-
----
 
 ## Disclaimer
 
